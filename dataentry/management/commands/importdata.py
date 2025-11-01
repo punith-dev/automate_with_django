@@ -51,12 +51,10 @@ class Command(BaseCommand):
             raise CommandError(f'model "{model_name}" not found in any app.')
         
         model_fields = [field.name for field in model._meta.fields if field.name != 'id']
-        print(model_fields)
         
         with open(file_path, 'r') as file:
             reader = csv.DictReader(file)
             csv_fields = reader.fieldnames
-            print(csv_fields)
             if csv_fields != model_fields:
                 raise DataError(f"CSV file doesn't match with the {model_name} table fields.")
             for row in reader:
